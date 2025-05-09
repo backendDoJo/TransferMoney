@@ -1,3 +1,5 @@
+package OptimisticMoneyTransfer;
+
 import java.math.BigDecimal;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -7,8 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-
+public class OptimisticTransferDemo {
     public static void main(String[] args) {
         System.out.println("=== Демонстрация денежных переводов с оптимистичной блокировкой ===");
 
@@ -31,7 +32,7 @@ public class Main {
         System.out.println("Alice: " + alice.getBalance());
         System.out.println("Bob: " + bob.getBalance());
 
-        TransferService service = new TransferService();
+        OptimisticTransferService service = new OptimisticTransferService();
         boolean success = service.transferMoneyOptimistic(alice, bob, new BigDecimal("300.00"));
 
         System.out.println("\nПосле перевода (успешно: " + success + "):");
@@ -51,7 +52,7 @@ public class Main {
         System.out.println("Alice: " + alice.getBalance());
         System.out.println("Bob: " + bob.getBalance());
 
-        TransferService service = new TransferService();
+        OptimisticTransferService service = new OptimisticTransferService();
         boolean success = service.transferMoneyOptimistic(alice, bob, new BigDecimal("300.00"));
 
         System.out.println("\nПосле попытки перевода (успешно: " + success + "):");
@@ -79,7 +80,7 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(THREADS);
         CountDownLatch latch = new CountDownLatch(THREADS);
 
-        TransferService service = new TransferService();
+        OptimisticTransferService service = new OptimisticTransferService();
 
         // Первый перевод
         executor.submit(() -> {
@@ -135,7 +136,7 @@ public class Main {
         CountDownLatch latch = new CountDownLatch(THREADS);
         AtomicInteger successCount = new AtomicInteger(0);
 
-        TransferService service = new TransferService();
+        OptimisticTransferService service = new OptimisticTransferService();
 
         for (int i = 0; i < THREADS; i++) {
             final int threadNum = i;

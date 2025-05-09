@@ -1,6 +1,8 @@
+package OptimisticMoneyTransfer;
+
 import java.math.BigDecimal;
 
-public class TransferService {
+public class OptimisticTransferService {
 
     /**
      * Перевод денег между счетами с использованием оптимистичной блокировки
