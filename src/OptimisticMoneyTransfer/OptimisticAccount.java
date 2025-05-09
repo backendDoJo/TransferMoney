@@ -3,7 +3,7 @@ package OptimisticMoneyTransfer;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Account {
+public class OptimisticAccount {
 
     private final String id;
     private final AtomicReference<BigDecimal> balance;
@@ -14,7 +14,7 @@ public class Account {
      * @param id             идентификатор счета
      * @param initialBalance начальный баланс
      */
-    public Account(String id, BigDecimal initialBalance) {
+    public OptimisticAccount(String id, BigDecimal initialBalance) {
         this.id = id;
         this.balance = new AtomicReference<>(initialBalance);
     }

@@ -1,4 +1,4 @@
-package PessemisticMoneyTransfer;
+package PessimisticMoneyTransfer;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CountDownLatch;
@@ -10,15 +10,15 @@ public class PessimisticTransferDemo {
         System.out.println("=== Демонстрация денежных переводов с пессимистичной блокировкой ===");
 
         // Создаем счета
-        Account alice = new Account(1, new BigDecimal("1000.00"));
-        Account bob = new Account(2, new BigDecimal("500.00"));
+        PessimisticAccount alice = new PessimisticAccount(1, new BigDecimal("1000.00"));
+        PessimisticAccount bob = new PessimisticAccount(2, new BigDecimal("500.00"));
 
         System.out.println("До перевода:");
         System.out.println("Alice (ID: " + alice.getId() + "): " + alice.getBalance());
         System.out.println("Bob (ID: " + bob.getId() + "): " + bob.getBalance());
 
         // Выполняем перевод
-        boolean result = PessemisticMoneyTransferService.transferMoney(alice, bob, new BigDecimal("300.00"));
+        boolean result = PessimisticMoneyTransferService.transferMoney(alice, bob, new BigDecimal("300.00"));
 
         System.out.println("\nПосле перевода (успешно: " + result + "):");
         System.out.println("Alice: " + alice.getBalance());
@@ -31,10 +31,10 @@ public class PessimisticTransferDemo {
     static void testConcurrentTransfers() {
         System.out.println("\n=== Тест параллельных переводов с пессимистичной блокировкой ===");
 
-        final Account account1 = new Account(1, new BigDecimal("10000.00"));
-        final Account account2 = new Account(2, new BigDecimal("10000.00"));
+        final PessimisticAccount pessimisticAccount1 = new PessimisticAccount(1, new BigDecimal("10000.00"));
+        final PessimisticAccount pessimisticAccount2 = new PessimisticAccount(2, new BigDecimal("10000.00"));
 
-        BigDecimal initialTotal = account1.getBalance().add(account2.getBalance());
+        BigDecimal initialTotal = pessimisticAccount1.getBalance().add(pessimisticAccount2.getBalance());
         System.out.println("Начальная сумма: " + initialTotal);
 
         // Создаем и запускаем потоки
@@ -52,9 +52,9 @@ public class PessimisticTransferDemo {
                     for (int j = 0; j < TRANSFERS_PER_THREAD; j++) {
                         // Четные потоки переводят в одном направлении, нечетные - в обратном
                         if (threadId % 2 == 0) {
-                            PessemisticMoneyTransferService.transferMoney(account1, account2, new BigDecimal("10"));
+                            PessimisticMoneyTransferService.transferMoney(pessimisticAccount1, pessimisticAccount2, new BigDecimal("10"));
                         } else {
-                            PessemisticMoneyTransferService.transferMoney(account2, account1, new BigDecimal("10"));
+                            PessimisticMoneyTransferService.transferMoney(pessimisticAccount2, pessimisticAccount1, new BigDecimal("10"));
                         }
                     }
                 } finally {
@@ -72,7 +72,7 @@ public class PessimisticTransferDemo {
         executor.shutdown();
 
         long endTime = System.currentTimeMillis();
-        BigDecimal finalTotal = account1.getBalance().add(account2.getBalance());
+        BigDecimal finalTotal = pessimisticAccount1.getBalance().add(pessimisticAccount2.getBalance());
 
         System.out.println("Финальная сумма: " + finalTotal);
         System.out.println("Сумма сохранилась: " + initialTotal.equals(finalTotal));

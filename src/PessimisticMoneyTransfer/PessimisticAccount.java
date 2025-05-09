@@ -1,16 +1,16 @@
-package PessemisticMoneyTransfer;
+package PessimisticMoneyTransfer;
 
 import java.math.BigDecimal;
 
 /**
  * Класс Account с правильной поддержкой многопоточности
  */
-public class Account {
+public class PessimisticAccount {
     private final long id;
     private BigDecimal balance;
     private final Object lock = new Object(); // Объект для блокировки
 
-    public Account(long id, BigDecimal initialBalance) {
+    public PessimisticAccount(long id, BigDecimal initialBalance) {
         this.id = id;
         this.balance = initialBalance;
     }

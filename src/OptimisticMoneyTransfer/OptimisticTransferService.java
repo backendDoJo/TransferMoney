@@ -12,7 +12,7 @@ public class OptimisticTransferService {
      * @param amount сумма перевода
      * @return true если перевод успешен, false в противном случае
      */
-    public boolean transferMoneyOptimistic(Account from, Account to, BigDecimal amount) {
+    public boolean transferMoneyOptimistic(OptimisticAccount from, OptimisticAccount to, BigDecimal amount) {
         // 1. Проверка входных данных
         if (from == null || to == null || amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             return false;
@@ -101,7 +101,7 @@ public class OptimisticTransferService {
     }
 
     // Вспомогательный метод для записи ошибок
-    private void logTransactionError(Account from, Account to, BigDecimal amount) {
+    private void logTransactionError(OptimisticAccount from, OptimisticAccount to, BigDecimal amount) {
         // В реальной системе здесь должен быть мониторинг и система восстановления
         System.err.println("КРИТИЧЕСКАЯ ОШИБКА ТРАНЗАКЦИИ: не удалось откатить списание");
         System.err.println("Счет отправителя: " + from.getId() + ", баланс: " + from.getBalance());

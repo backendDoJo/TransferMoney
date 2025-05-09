@@ -25,8 +25,8 @@ public class OptimisticTransferDemo {
      */
     static void testSimpleTransfer() {
         System.out.println("\n=== Тест 1: Простой перевод ===");
-        Account alice = new Account("A001", new BigDecimal("1000.00"));
-        Account bob = new Account("B002", new BigDecimal("500.00"));
+        OptimisticAccount alice = new OptimisticAccount("A001", new BigDecimal("1000.00"));
+        OptimisticAccount bob = new OptimisticAccount("B002", new BigDecimal("500.00"));
 
         System.out.println("До перевода:");
         System.out.println("Alice: " + alice.getBalance());
@@ -45,8 +45,8 @@ public class OptimisticTransferDemo {
      */
     static void testInsufficientFunds() {
         System.out.println("\n=== Тест 2: Недостаточно средств ===");
-        Account alice = new Account("A003", new BigDecimal("100.00"));
-        Account bob = new Account("B004", new BigDecimal("500.00"));
+        OptimisticAccount alice = new OptimisticAccount("A003", new BigDecimal("100.00"));
+        OptimisticAccount bob = new OptimisticAccount("B004", new BigDecimal("500.00"));
 
         System.out.println("До перевода:");
         System.out.println("Alice: " + alice.getBalance());
@@ -65,10 +65,10 @@ public class OptimisticTransferDemo {
      */
     static void testConcurrentTransfers() {
         System.out.println("\n=== Тест 3: Параллельные переводы ===");
-        Account alice = new Account("A005", new BigDecimal("1000.00"));
-        Account bob = new Account("B006", new BigDecimal("1000.00"));
-        Account charlie = new Account("C007", new BigDecimal("1000.00"));
-        Account david = new Account("D008", new BigDecimal("1000.00"));
+        OptimisticAccount alice = new OptimisticAccount("A005", new BigDecimal("1000.00"));
+        OptimisticAccount bob = new OptimisticAccount("B006", new BigDecimal("1000.00"));
+        OptimisticAccount charlie = new OptimisticAccount("C007", new BigDecimal("1000.00"));
+        OptimisticAccount david = new OptimisticAccount("D008", new BigDecimal("1000.00"));
 
         System.out.println("До переводов:");
         System.out.println("Alice: " + alice.getBalance());
@@ -120,8 +120,8 @@ public class OptimisticTransferDemo {
      */
     static void testHighConcurrencyScenario() {
         System.out.println("\n=== Тест 4: Высокая конкуренция ===");
-        Account shared1 = new Account("S001", new BigDecimal("10000.00"));
-        Account shared2 = new Account("S002", new BigDecimal("10000.00"));
+        OptimisticAccount shared1 = new OptimisticAccount("S001", new BigDecimal("10000.00"));
+        OptimisticAccount shared2 = new OptimisticAccount("S002", new BigDecimal("10000.00"));
 
         BigDecimal initialTotal = shared1.getBalance().add(shared2.getBalance());
 

@@ -1,11 +1,11 @@
-package PessemisticMoneyTransfer;
+package PessimisticMoneyTransfer;
 
 import java.math.BigDecimal;
 
 /**
  * Реализация пессимистичного подхода к переводу денег
  */
-public class PessemisticMoneyTransferService {
+public class PessimisticMoneyTransferService {
     /**
      * Выполняет перевод средств с использованием пессимистичной блокировки.
      * Предотвращает взаимоблокировки путем упорядочивания блокировок.
@@ -16,7 +16,7 @@ public class PessemisticMoneyTransferService {
      * @param amount сумма перевода
      * @return true если перевод выполнен успешно, false в случае ошибки
      */
-    public static boolean transferMoney(Account from, Account to, BigDecimal amount) {
+    public static boolean transferMoney(PessimisticAccount from, PessimisticAccount to, BigDecimal amount) {
         // Защита от некорректных входных данных
         if (from == null || to == null || amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             return false;
