@@ -58,7 +58,7 @@ public class OptimisticTransferService {
                         BigDecimal currentFromBalance = from.getBalance();
 
                         // Пытаемся вернуть средства на счет отправителя
-                        if (currentFromBalance.compareTo(newFromBalance)) {
+                        if (currentFromBalance.compareTo(newFromBalance) == 0) {
                             // Если баланс не менялся после нашего списания
                             rollbackSuccess = from.compareAndSetBalance(newFromBalance, fromBalance);
                         } else {
