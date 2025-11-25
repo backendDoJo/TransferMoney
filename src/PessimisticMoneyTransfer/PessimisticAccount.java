@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 /**
  * Класс Account с правильной поддержкой многопоточности
+ * Используется только в PessimisticMoneyTransferService.
+ * Требует внешней синхронизации через getLock().
  */
 public class PessimisticAccount {
     private final long id;
@@ -20,21 +22,15 @@ public class PessimisticAccount {
     }
 
     public BigDecimal getBalance() {
-        synchronized (lock) {
-            return balance;
-        }
+        return balance;
     }
 
     public void withdraw(BigDecimal amount) {
-        synchronized (lock) {
-            balance = balance.subtract(amount);
-        }
+        balance = balance.subtract(amount);
     }
 
     public void deposit(BigDecimal amount) {
-        synchronized (lock) {
-            balance = balance.add(amount);
-        }
+        balance = balance.add(amount);
     }
 
     public Object getLock() {
